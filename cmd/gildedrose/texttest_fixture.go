@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/ppicom/kata-gilded-rose-refactoring/cmd/gildedrose"
+	"github.com/ppicom/kata-gilded-rose-refactoring/internal/gildedrose"
 )
 
 func main() {

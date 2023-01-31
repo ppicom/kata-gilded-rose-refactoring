@@ -1,9 +1,12 @@
+//go:build unit
+// +build unit
+
 package gildedrose_test
 
 import (
 	"testing"
 
-	"github.com/ppicom/kata-gilded-rose-refactoring/cmd/gildedrose"
+	"github.com/ppicom/kata-gilded-rose-refactoring/internal/gildedrose"
 )
 
 func Test_Foo(t *testing.T) {
