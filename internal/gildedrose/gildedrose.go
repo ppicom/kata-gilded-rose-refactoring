@@ -5,32 +5,26 @@ import "strings"
 func UpdateQuality(items []*Item) {
 	for i := 0; i < len(items); i++ {
 
-		if items[i].Name == "Sulfuras, Hand of Ragnaros" {
-			transformSulfuras(items[i])
-			continue
+		var transform func(*Item)
+
+		switch {
+		case items[i].Name == "Sulfuras, Hand of Ragnaros":
+			transform = transformSulfuras
+		case items[i].Name == "Aged Brie":
+			transform = transformBrie
+		case items[i].Name == "Backstage passes to a TAFKAL80ETC concert":
+			transform = transformBackstagePasses
+		case strings.HasPrefix(items[i].Name, "Conjured"):
+			transform = transformConjured
+		default:
+			transform = transformRegularItem
 		}
 
-		if items[i].Name == "Aged Brie" {
-			transformBrie(items[i])
-			continue
-		}
-
-		if items[i].Name == "Backstage passes to a TAFKAL80ETC concert" {
-			transformBasckstagePasses(items[i])
-			continue
-		}
-
-		if strings.HasPrefix(items[i].Name, "Conjured") {
-			transformConjured(items[i])
-			continue
-		}
-
-		transformRegularItem(items[i])
-
+		transform(items[i])
 	}
 }
 
-func transformBasckstagePasses(item *Item) {
+func transformBackstagePasses(item *Item) {
 	var qualityDelta int = 1
 	switch {
 	case item.SellIn < 1:
