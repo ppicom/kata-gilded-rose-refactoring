@@ -108,6 +108,18 @@ func (s *updateQualityShould) Test_set_quality_of_concerts_to_0_after_sellin_dat
 	s.Equal(0, items[0].Quality)
 }
 
+func (s *updateQualityShould) Test_decrease_quality_of_conjured_items_twice_as_fast() {
+	items := []*gildedrose.Item{
+		{Name: "Conjured Mana Cake", SellIn: 3, Quality: 6},
+		{Name: "Conjured Mana Cake", SellIn: 0, Quality: 6},
+	}
+
+	gildedrose.UpdateQuality(items)
+
+	s.Equal(4, items[0].Quality)
+	s.Equal(2, items[1].Quality)
+}
+
 func TestRegularItemsShould(t *testing.T) {
 	suite.Run(t, new(updateQualityShould))
 }

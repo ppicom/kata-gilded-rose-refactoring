@@ -1,5 +1,7 @@
 package gildedrose
 
+import "strings"
+
 func UpdateQuality(items []*Item) {
 	for i := 0; i < len(items); i++ {
 
@@ -31,7 +33,18 @@ func UpdateQuality(items []*Item) {
 			continue
 		}
 
-		items[i].SellIn -= 1
+		if strings.HasPrefix(items[i].Name, "Conjured") {
+			if items[i].Quality > 0 {
+				var qualityDecrease = 2
+				if items[i].SellIn < 1 {
+					qualityDecrease = 4
+				}
+				items[i].Quality -= qualityDecrease
+			}
+
+			items[i].SellIn -= 1
+			continue
+		}
 
 		if items[i].Quality > 0 {
 			var qualityDecrease = 1
@@ -40,5 +53,8 @@ func UpdateQuality(items []*Item) {
 			}
 			items[i].Quality -= qualityDecrease
 		}
+
+		items[i].SellIn -= 1
+
 	}
 }
